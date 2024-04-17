@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task Management System</title>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #ddd;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  li:last-child {
+    margin-bottom: 0;
+  }
+  
+  .delete-form {
+    display: inline;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Task Management System</h1>
+  <form action="/todo-post" method="post">
+    <input type="text" id="taskInput" placeholder="Enter task" name="input">
+    <button type="submit">Add Task</button>
+  </form>
+  <ul id="taskList">
+    {% for task in tasks %}
+      <li>
+        {{ loop.index }}. {{ task }}
+        <form class="delete-form" action="/todo-delete/{{ loop.index0 }}" method="post">
+          <input type="hidden" name="_method" value="DELETE">
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+</body>
+</html>
